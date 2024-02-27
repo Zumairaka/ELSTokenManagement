@@ -25,13 +25,13 @@ module.exports = {
       allowUnlimitedContractSize: true
     },
     sepolia: {
-      url: "https://sepolia.infura.io/v3/",
+      url: `https://sepolia.infura.io/v3/${process.env.API_KEY}`,
       chainId: 11155111,
       accounts: [`0x${process.env.PRIVATE_KEY_SEPOLIA}`]
     }
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_SEPOLIA
+    apiKey: process.env.ETHERSCAN_ETHEREUM
   },
   gasReporter: {
     currency: "ELS",

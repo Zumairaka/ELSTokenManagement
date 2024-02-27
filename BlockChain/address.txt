@@ -1,0 +1,9 @@
+/* Sepolia */
+ELS Token Proxy: 0xf9D0cDBf327739b042F6d0dF7a2093655c553345
+ELS Token Imple: 0x2fB574173124538E1EB6760E70bF2EF632EBEb75
+https://sepolia.etherscan.io/address/0x2fB574173124538E1EB6760E70bF2EF632EBEb75#code
+
+TokenManagement Proxy: 0x324C0660A0bD25D70EA720db81075e7c4aF75B54
+TokenManagement Imple: 0xD4a33fcc75Ab50DfC20dd0D758Ec0D57cCDeD512
+https://sepolia.etherscan.io/address/0xD4a33fcc75Ab50DfC20dd0D758Ec0D57cCDeD512#code
+
