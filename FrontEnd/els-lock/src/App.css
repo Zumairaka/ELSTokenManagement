@@ -8,7 +8,7 @@
 .App-header {
   background-color: white;
   border: 2px solid lightgray;
-  width: 600px;
+  width: 700px;
   margin: 100px auto;
   display: flex;
   flex-direction: column;
@@ -35,8 +35,8 @@
   margin-top: 12px;
   font-size: 30px;
   position: absolute;
-  left: 150px;
-  top: 40px;
+  left: 170px;
+  top: 50px;
 }
 
 .address-title {
@@ -55,6 +55,14 @@
   top: 20px;
 }
 
+.balance {
+  color: rgb(99, 82, 196);
+  font-size: 10px;
+  position: absolute;
+  left: 10px;
+  top: 35px;
+}
+
 .metamask {
   width: 60px;
   height: 60px;
@@ -70,8 +78,8 @@
   position: absolute;
   width: 350px;
   height: 25px;
-  bottom: 60px;
-  left: 150px;
+  bottom: 75px;
+  left: 170px;
   font-size: 16px;
   text-align: center;
   color: rgb(83, 80, 80);
@@ -83,8 +91,8 @@
   gap: 10px;
   width: 350px;
   height: 25px;
-  bottom: 10px;
-  left: 155px;
+  bottom: 28px;
+  left: 170px;
   font-size: 16px;
   text-align: center;
   align-items: center;

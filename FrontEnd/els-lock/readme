@@ -1,0 +1,9 @@
+1. in terminal go to els-lock folder
+2. type "npm install" for installing all the packages. if throws error enter the    command "npm install --legacy-peer-deps"
+3. create .env file
+4. cope the API_KEY from infura and paste it under .env file "APLI_KEY=yourkey"
+5. use command "npm run start" for running the app
+6. click on the metamask logo to connect to the metamask wallet
+7. upon successful it will show your address and balance and send withdraw buttons
+8. I couldnt make the send withdraw successful. Some issue with react connection
+
