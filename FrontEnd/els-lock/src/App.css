@@ -63,6 +63,14 @@
   top: 35px;
 }
 
+.token {
+  color: rgb(99, 82, 196);
+  font-size: 10px;
+  position: absolute;
+  left: 10px;
+  top: 45px;
+}
+
 .metamask {
   width: 60px;
   height: 60px;
@@ -72,6 +80,18 @@
   position: absolute;
   right: 5px;
   top: 5px;
+}
+
+.lock-balance {
+  width: 60px;
+  height: 60px;
+  border: none;
+  font-size: 18px;
+  border-radius: 10px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color: rgb(99, 82, 196);
 }
 
 .amount {
@@ -117,7 +137,12 @@
   border-radius: 20px;
 }
 
-.success {
-  color: rgb(11, 239, 11);
+.completed {
+  color: rgb(76, 190, 76);
+  position: absolute;
+}
+
+.fail {
+  color: rgb(210, 79, 79);
   position: absolute;
 }
