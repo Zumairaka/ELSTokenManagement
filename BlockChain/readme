@@ -18,3 +18,4 @@ https://sepolia.etherscan.io/address/0xD4a33fcc75Ab50DfC20dd0D758Ec0D57cCDeD512#
 4. run the command "npx hardhat test" for running the test cases and estimated gas cost"
 5. the smart contracts are already deployed to the above addresses if you want to redeploy it run command "npx hardhat run scripts/deploy-contracts.js --network sepolia"
 6. to verify the contracts run command "npx hardhat verify deployedAddress --network sepolia"
+8. I suggest you to redeploy both contracts using the script command. otherwise send me the address and I will share some ELS tokens since I am using the token I created.
