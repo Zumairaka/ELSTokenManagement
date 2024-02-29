@@ -766,64 +766,113 @@ function App() {
         address: address
     });
 
-    // // read locked token balance
-    // const { token } = useContractRead({
-    //     abi: abi,
-    //     address: "0x324C0660A0bD25D70EA720db81075e7c4aF75B54",
-    //     functionName: "getToken()"
-    // });
+    // read locked token balance
+    const { data: balance, refetch } = useContractRead({
+        abi: abi,
+        address: "0x324C0660A0bD25D70EA720db81075e7c4aF75B54",
+        functionName: "getBalance(address)",
+        args: [address]
+    });
 
     // prepare approval tokens
-    const { data: approvalHash, isLoading, write: approveToken } = useContractWrite({
-        address: "0xf9D0cDBf327739b042F6d0dF7a2093655c553345",
-        abi: tokenABI,
-        chainId: sepolia.id,
-        functionName: "approve(address,uint256)",
-        args: ["0x324C0660A0bD25D70EA720db81075e7c4aF75B54", (amount * 1e18).toString()]
-    });
+    const {
+        data: approvalHash,
+        isError: approvalError,
+        isLoading: approvalLoading,
+        isSuccess: approvalSuccess,
+        reset: approvalReset,
+        write: approveToken } = useContractWrite({
+            address: "0xf9D0cDBf327739b042F6d0dF7a2093655c553345",
+            abi: tokenABI,
+            chainId: sepolia.id,
+            functionName: "approve(address,uint256)",
+            args: ["0x324C0660A0bD25D70EA720db81075e7c4aF75B54", (amount * 1e18).toString()]
+        });
 
     // prepare send tokens
-    const { data: sendHash, isError, write: sendToken } = useContractWrite({
-        address: "0x324C0660A0bD25D70EA720db81075e7c4aF75B54",
-        abi: abi,
-        chainId: sepolia.id,
-        functionName: "sendToken(uint256)",
-        args: [(amount * 1e18).toString()]
-    });
+    const {
+        data: sendHash,
+        isLoading: sendLoading,
+        isError: sendError,
+        isSuccess: sendSuccess,
+        reset: sendReset,
+        write: sendToken } = useContractWrite({
+            address: "0x324C0660A0bD25D70EA720db81075e7c4aF75B54",
+            abi: abi,
+            chainId: sepolia.id,
+            functionName: "sendToken(uint256)",
+            args: [(amount * 1e18).toString()]
+        });
+
+    // prepare withdraw tokens
+    const {
+        data: withdrawHash,
+        isLoading: withdrawLoading,
+        isError: withdrawError,
+        isSuccess: withdrawSuccess,
+        reset: withdrawReset,
+        write: withdrawToken } = useContractWrite({
+            address: "0x324C0660A0bD25D70EA720db81075e7c4aF75B54",
+            abi: abi,
+            chainId: sepolia.id,
+            functionName: "withdrawToken(uint256)",
+            args: [(amount * 1e18).toString()]
+        });
 
     return (
         <div className="App">
-            <header className="App-header">
+            <header className="App-container">
                 <img src='ethlas-thumb.webp' className='app-img' alt="app-img" />
                 <div className="title">
                     ELS Token Management
                 </div>
                 {isConnected ? (
                     <div>
-                        {/* <div className="lock-balance">{token}</div> */}
                         <h3 className='address-title'>Connected Wallet</h3>
                         <h4 className='address'>{address}</h4>
                         <h4 className='balance'>Balance: {balanceData?.formatted}{balanceData?.symbol}</h4>
+                        <h4 className='token-balance'>Token Locked Balance: {balance?.toString()}</h4>
                         <input
                             type='text'
                             value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
+                            onChange={(e) => { setAmount(e.target.value); sendReset(); approvalReset(); withdrawReset(); refetch(); }}
                             className='amount'
                             placeholder='Enter Amount'>
                         </input>
+                        
+                        {/* buttons */}
                         <div className='buttons'>
                             {/* Send buttons */}
-                            {!approvalHash ? (<button className='send' onClick={() => approveToken?.()}>
-                                {isLoading ? "Approving!!!" : "Send Tokens"}
-                            </button>) : (<button className='send' onClick={() => sendToken?.()}>
-                                {isLoading ? "Sending Token!!!" : "Send Tokens"}
+                            {!approvalHash ? (<button disabled={approvalLoading} className='send' onClick={() => approveToken?.()}>
+                                {approvalLoading ? "Approving!!!" : "Send Tokens"}
+                            </button>) : (<button disabled={!approvalHash || !approvalSuccess || sendLoading || !approvalSuccess} className='send' onClick={() => {
+                                sendToken?.(); setAmount(""); refetch()
+                            }}>
+                                {approvalHash && approvalSuccess ? (
+                                    !sendLoading && !sendHash && !sendSuccess ? "Approved, click to Send" :
+                                        !sendSuccess && !sendHash ? "Sending Tokens!!!" : "Send Tokens"
+                                ) : "Send Tokens"}
                             </button>)}
 
                             {/* withdraw buttons */}
-                            <button className='withdraw'>Withdraw</button>
+                            <button disabled={withdrawLoading} className='withdraw' onClick={() => {
+                                withdrawToken?.(); setAmount(""); refetch();
+                            }} >
+                                {withdrawLoading ? "Withdrawing Tokens!!!" : "Withdraw Tokens"}
+                            </button>
                         </div>
-                        {sendHash && <p className='completed'>Sending completed successfully!!</p>}
-                        {isError && <p className='fail'>Transaction failed!</p>}
+
+                        {/* confirmation */}
+                        <div className='confirmation'>
+                            {(sendSuccess || withdrawSuccess) && <p className='completed'>Transaction completed successfully!!</p>}
+                            {(approvalError || withdrawError || sendError) && <p className='fail'>Transaction failed!</p>}
+                        </div>
+
+                        {/* hash */}
+                        <div className='hash'>
+                            {sendHash && <p>Send Hash: {sendHash?.hash}</p>}
+                            {withdrawHash && <p>Withdraw Hash: {withdrawHash?.hash}</p>}
+                        </div>
                     </div>
                 ) : (
                     <img src="metamask.png" onClick={connect} className="metamask" alt="metamask" />

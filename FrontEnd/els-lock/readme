@@ -4,6 +4,9 @@
 4. cope the API_KEY from infura and paste it under .env file "APLI_KEY=yourkey"
 5. use command "npm run start" for running the app
 6. click on the metamask logo to connect to the metamask wallet
-7. upon successful it will show your address and balance and send withdraw buttons
-8. I couldnt make the send withdraw successful. Some issue with react connection
+7. upon successful it will show your address and both eth
+and token locked balance. Also it will show the send withdraw buttons
+8. specify the amount (1 for 1 eth etc as I am doing conversion in frontend) and click send. Give approval and the buttons will keep change based on the status. Also give sometime between approval and sending tokens as it takes sometime to write the approval on mainnet. Otheriwise the txn will throw error.
+9. Click send and sign the txn and wait for the confirmation and hash.
+10. Mention the amount again for withdrawal and click withdraw. 
 
