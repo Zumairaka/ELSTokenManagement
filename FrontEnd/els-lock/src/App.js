@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // import { ABI } from "./contract-abi.js";
 
 function App() {
-    // abi
+    // lock abi
     const abi = [
         {
             "inputs": [],
@@ -254,6 +254,7 @@ function App() {
             "type": "function"
         }
     ];
+    // token abi
     const tokenABI = [
         {
             "inputs": [
@@ -839,7 +840,7 @@ function App() {
                             className='amount'
                             placeholder='Enter Amount'>
                         </input>
-                        
+
                         {/* buttons */}
                         <div className='buttons'>
                             {/* Send buttons */}
